@@ -5,7 +5,7 @@ using Moonity.Core.Lua;
 namespace Moonity.Core.Calls
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class MoonityCall : Attribute
+    public sealed class MoonityCallAttribute : Attribute
     {
         public string CallName { get; }
         public string Description { get; }
@@ -16,7 +16,7 @@ namespace Moonity.Core.Calls
         public bool HasReturnDescription => !string.IsNullOrWhiteSpace(ReturnDescription);
         public bool HasReturnType => ReturnType != null;
 
-        public MoonityCall(
+        public MoonityCallAttribute(
             string callName,
             string description,
             string returnDescription,
