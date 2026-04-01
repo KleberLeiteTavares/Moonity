@@ -1,4 +1,4 @@
 ﻿<Solution>
-  <Project Path="Moonity.Editor.csproj" />
   <Project Path="Moonity.Core.csproj" />
+  <Project Path="Moonity.Editor.csproj" />
 </Solution>
