@@ -1,0 +1,16 @@
+{
+    "name": "Moonity.Editor",
+    "rootNamespace": "Moonity.Editor",
+    "references": [
+        "GUID:9e9f883cb714fb54e9dde80305a05856"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
