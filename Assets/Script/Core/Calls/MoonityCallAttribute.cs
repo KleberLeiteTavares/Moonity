@@ -17,10 +17,10 @@ namespace Moonity.Core.Calls
         public bool HasReturnType => ReturnType != null;
 
         public MoonityCallAttribute(
-            string callName,
-            string description,
-            string returnDescription,
-            LuaType returnType
+            string callName = "",
+            string description = "",
+            string returnDescription = "",
+            LuaType? returnType = null
         )
         {
             CallName = callName;
