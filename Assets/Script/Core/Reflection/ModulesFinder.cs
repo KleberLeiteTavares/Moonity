@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 using Moonity.Core.Algorithms;
 using Moonity.Core.Lua;
@@ -108,13 +107,25 @@ namespace Moonity.Core.Reflection
             {
                 TempModuleDefinition tempDefinition = sortedDefinitions[i];
 
+                string fullName = GetFullModuleName(tempDefinition, modulesMap);
+
+                IReadOnlyList<CallDefinition> calls = GetCallsSafe(tempDefinition.Type);
+                IReadOnlyList<EnumDefinition> enums = GetEnumsSafe(tempDefinition.Type);
+
                 ModuleDefinition moduleDefinition = new ModuleDefinition(
                     tempDefinition.ModuleName,
                     tempDefinition.ParentModuleName,
-                    GetFullModuleName(tempDefinition, modulesMap),
+                    fullName,
                     tempDefinition.Description,
+                    calls,
+                    enums,
                     tempDefinition.Type
                 );
+
+                if (moduleDefinition.IsEmpty)
+                {
+                    // TODO: warning
+                }
 
                 moduleDefinitions.Add(moduleDefinition);
             }
@@ -141,6 +152,32 @@ namespace Moonity.Core.Reflection
             }
 
             return definition.FullModuleName;
+        }
+
+        private static IReadOnlyList<CallDefinition> GetCallsSafe(Type type)
+        {
+            try
+            {
+                return CallsFinder.FindAllFrom(type);
+            }
+            catch
+            {
+                // TODO: warning
+                return Array.Empty<CallDefinition>();
+            }
+        }
+
+        private static IReadOnlyList<EnumDefinition> GetEnumsSafe(Type type)
+        {
+            try
+            {
+                return EnumsFinder.FindAllFrom(type);
+            }
+            catch
+            {
+                // TODO: warning
+                return Array.Empty<EnumDefinition>();
+            }
         }
     }
 }
