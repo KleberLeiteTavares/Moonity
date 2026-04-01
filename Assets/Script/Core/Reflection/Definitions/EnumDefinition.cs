@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Moonity.Core.Enums
+namespace Moonity.Core.Reflection
 {
     public sealed class EnumDefinition
     {
