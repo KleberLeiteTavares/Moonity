@@ -10,7 +10,6 @@ namespace Moonity.Core.Reflection
 {
     public static class CallsFinder
     {
-
         public static IReadOnlyList<CallDefinition> FindAllFrom(Type moduleType)
         {
             IEnumerable<MethodInfo> targets = moduleType.GetMethods().Where(m => IsValidMethod(m));
