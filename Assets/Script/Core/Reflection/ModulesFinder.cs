@@ -5,22 +5,13 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 
 using Moonity.Core.Algorithms;
+using Moonity.Core.Lua;
 using Moonity.Core.Modules;
 
 namespace Moonity.Core.Reflection
 {
     public static class ModulesFinder
     {
-        private static readonly Regex _luaIdentifierRegex = new("^[a-zA-Z][a-zA-Z0-9]*$");
-
-        private static readonly HashSet<string> _luaKeywords = new()
-        {
-            "and", "break", "do", "else", "elseif", "end",
-            "false", "for", "function", "goto", "if", "in",
-            "local", "nil", "not", "or", "repeat", "return",
-            "then", "true", "until", "while"
-        };
-
         private class TempModuleDefinition
         {
             public string ModuleName { get; }
@@ -101,21 +92,7 @@ namespace Moonity.Core.Reflection
             if (string.IsNullOrWhiteSpace(moduleAttribute.ModuleName))
                 return false;
 
-            if (!IsValidLuaIdentifier(moduleAttribute.ModuleName))
-                return false;
-
-            return true;
-        }
-
-        private static bool IsValidLuaIdentifier(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                return false;
-
-            if (!_luaIdentifierRegex.IsMatch(name))
-                return false;
-
-            if (_luaKeywords.Contains(name))
+            if (!LuaNamesUtils.IsValidLuaIdentifier(moduleAttribute.ModuleName))
                 return false;
 
             return true;
