@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -27,6 +28,30 @@ namespace Moonity.Core.Lua
                 return false;
 
             return true;
+        }
+
+        public static string FromCSharp(Type type)
+        {
+            if (type.IsEnum)
+                return "number";
+
+            if (type == typeof(int) ||
+                type == typeof(float) ||
+                type == typeof(double) ||
+                type == typeof(long) ||
+                type == typeof(short))
+                return "number";
+
+            if (type == typeof(bool))
+                return "boolean";
+
+            if (type == typeof(string) || type == typeof(char))
+                return "string";
+
+            if (!type.IsValueType)
+                return "table";
+
+            return "any"; // Fallback.
         }
     }
 }

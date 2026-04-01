@@ -7,7 +7,7 @@ namespace Moonity.Core.Algorithms
     public static class TopologicalSort
     {
         public static IReadOnlyList<T> Sort<T>(
-            List<T> values,
+            IReadOnlyList<T> values,
             Func<T, string> key,
             Func<T, string> parent,
             out Dictionary<string, T> map
